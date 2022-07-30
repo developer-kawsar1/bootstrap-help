@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap 5 Simple Admin Dashboard</title>
+  <link rel="stylesheet" href="res/bootstrap.min.css">
+  <link rel="stylesheet" href="res/chartist.in.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/css/ion.rangeSlider.min.css">
+
+</head>
+
+<body class="bg-light text-dark">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3  col-12 ">
+        <div>
+          <p class="fw-bold">Price range</p>
+
+          <div class="d-flex justify-content-between px-3">
+            <p>000</p>
+            <p>000</p>
+
+          </div>
+
+          <div class="px-3">
+
+            <input type="text" class="js-range-slider" name="my_range" value="" data-skin="round" data-type="double" data-min="50000" data-max="100000" data-grid="false" />
+
+
+
+
+          </div>
+
+          <div class="form-to d-flex justify-content-between mt-3">
+            <p>From</p>
+            <p>To</p>
+          </div>
+          <div class="input-box d-flex gap-2">
+            <input type="number" class="form-control from " maxlength="6" value="50000">
+            <input type="number" class="form-control to text-danger" maxlength="6" value="100000">
+
+          </div>
+          <button id="custom-btn" class="btn btn-block w-100 bg-danger mt-5 text-white">ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-6 col-md-3">
+          col
+        </div>
+        <div class="col-6 col-md-3">
+          col
+        </div>
+        <div class="col-6 col-md-3">
+          col
+        </div>
+        <div class="col-6 col-md-3">
+          col
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/js/ion.rangeSlider.min.js"></script>
+  <script>
+    var $range = $(".js-range-slider"),
+      $from = $(".from"),
+      $to = $(".to"),
+      range,
+      min = $range.data('min'),
+      max = $range.data('max'),
+      from,
+      to;
+
+    var updateValues = function() {
+      $from.prop("value", from);
+      $to.prop("value", to);
+    };
+
+    $range.ionRangeSlider({
+      onChange: function(data) {
+        from = data.from;
+        to = data.to;
+        updateValues();
+      }
+    });
+
+    range = $range.data("ionRangeSlider");
+    var updateRange = function() {
+      range.update({
+        from: from,
+        to: to
+      });
+    };
+
+    $from.on("input", function() {
+      from = +$(this).prop("value");
+      if (from < min) {
+        from = min;
+      }
+      if (from > to) {
+        from = to;
+      }
+      updateValues();
+      updateRange();
+    });
+
+    $to.on("input", function() {
+      to = +$(this).prop("value");
+      if (to > max) {
+        to = max;
+      }
+      if (to < from) {
+        to = from;
+      }
+      updateValues();
+      updateRange();
+    });
+  </script>
+</body>
+
+</html>
